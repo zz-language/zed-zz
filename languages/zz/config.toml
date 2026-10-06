@@ -1,0 +1,10 @@
+name = "ZZ"
+grammar = "zz"
+path_suffixes = ["zz"]
+line_comments = ["// "]
+
+brackets = [
+  { start = "{", end = "}", close = true, newline = true },
+  { start = "[", end = "]", close = true, newline = true },
+  { start = "(", end = ")", close = true, newline = false },
+]

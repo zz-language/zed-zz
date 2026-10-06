@@ -1,0 +1,17 @@
+id = "zz"
+name = "ZZ"
+version = "0.1.0"
+schema_version = 1
+authors = ["zz-language"]
+description = "ZZ language support: syntax highlighting, snippets, and zz-lsp"
+repository = "https://github.com/zz-language/zed-zz"
+
+snippets = ["./snippets/zz.json"]
+
+[grammars.zz]
+repository = "https://github.com/zz-language/tree-sitter-zz"
+rev = "3ecae5962ca49a9bbb6fad520ad8458bf9efad8a"
+
+[language_servers.zz-lsp]
+name = "ZZ LSP"
+languages = ["ZZ"]

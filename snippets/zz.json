@@ -1,0 +1,138 @@
+{
+  "Function with return type": {
+    "prefix": "func",
+    "body": ["func ${1:name}(${2}) -> ${3} {", "\t${0}", "}"],
+    "description": "Function with return type"
+  },
+  "Function (no return type)": {
+    "prefix": "funcnr",
+    "body": ["func ${1:name}(${2}) {", "\t${0}", "}"],
+    "description": "Function (no return type)"
+  },
+  "Struct declaration": {
+    "prefix": "struct",
+    "body": ["struct ${1:Name} {", "\t${2:field}: ${3:type},", "}"],
+    "description": "Struct declaration"
+  },
+  "If-else": {
+    "prefix": "ife",
+    "body": ["if ${1:condition} {", "\t${2}", "} else {", "\t${0}", "}"],
+    "description": "If-else expression"
+  },
+  "For-in loop": {
+    "prefix": "for",
+    "body": ["for ${1:item} in ${2:iterable} {", "\t${0}", "}"],
+    "description": "For-in loop"
+  },
+  "For over range": {
+    "prefix": "forr",
+    "body": ["for ${1:i} in 0..${2:n} {", "\t${0}", "}"],
+    "description": "For loop over range"
+  },
+  "While loop": {
+    "prefix": "while",
+    "body": ["while ${1:condition} {", "\t${0}", "}"],
+    "description": "While loop"
+  },
+  "Match expression": {
+    "prefix": "match",
+    "body": ["match ${1:expr} {", "\t${2:.variant(v)} => ${3},", "\t${0}", "}"],
+    "description": "Match expression"
+  },
+  "Match on Option": {
+    "prefix": "optmatch",
+    "body": ["match ${1:opt} {", "\t.some(${2:v}) => ${3},", "\t.none => ${0},", "}"],
+    "description": "Match on Option"
+  },
+  "Match on Result": {
+    "prefix": "resmatch",
+    "body": ["match ${1:res} {", "\t.ok(${2:v}) => ${3},", "\t.err(${4:e}) => ${0},", "}"],
+    "description": "Match on Result"
+  },
+  "Import": {
+    "prefix": "import",
+    "body": "import ${1:std.module}",
+    "description": "Import statement"
+  },
+  "Try (unwrap Result)": {
+    "prefix": "try",
+    "body": "${1:expr}?",
+    "description": "Try (unwrap Result with ?)"
+  },
+  "Elvis operator": {
+    "prefix": "elvis",
+    "body": "${1:expr} ?? ${0:fallback}",
+    "description": "Elvis operator (unwrap or fallback)"
+  },
+  "Pipeline": {
+    "prefix": "pipe",
+    "body": "${1:expr} |> ${0:func}",
+    "description": "Pipeline operator"
+  },
+  "HTTP route (any method)": {
+    "prefix": "httproute",
+    "body": ["${1:srv} = ${1:srv}.route(\"${2:GET}\", \"${3:/path}\", |${4:req}| {", "\t${0}", "})"],
+    "description": "Register route (any method)"
+  },
+  "HTTP route with :param": {
+    "prefix": "httprouteparam",
+    "body": [
+      "${1:srv} = ${1:srv}.route(\"GET\", \"${2:/users/:id}\", |${3:req}| {",
+      "\t${4:id} := http.param(${3:req}, \"id\") ?? \"${5}\"",
+      "\t${0}",
+      "})"
+    ],
+    "description": "Route with :param + http.param"
+  },
+  "HTTP HTML response": {
+    "prefix": "httphtml",
+    "body": "http.respond(200, ${1:html}, {\"Content-Type\": \"text/html; charset=utf-8\"})",
+    "description": "HTML response"
+  },
+  "HTTP JSON response": {
+    "prefix": "httpjson",
+    "body": "http.respond(200, json.stringify(${1:v}) ?? \"{}\", {\"Content-Type\": \"application/json\"})",
+    "description": "JSON response"
+  },
+  "HTTP serve static dir": {
+    "prefix": "httpservedir",
+    "body": "${1:srv} = http.serve_dir(${1:srv}, \"${2:./public}\")",
+    "description": "Serve static directory"
+  },
+  "HTTP listen with options": {
+    "prefix": "httplistencfg",
+    "body": "http.listen_cfg(${1:srv}, ${2:8080}, {\"shutdown_ms\": ${3:800}})",
+    "description": "Start server with options"
+  },
+  "Static server skeleton": {
+    "prefix": "zzserver",
+    "body": [
+      "import std.http",
+      "",
+      "func main() -> Result<int, str> {",
+      "\tserver := http.server()",
+      "\tserver = http.log(server, true)",
+      "\tserver = http.serve_dir(server, \"${1:./public}\")",
+      "\tserver = server.route(\"GET\", \"${2:/health}\", |_req| http.ok(\"ok\"))",
+      "\thttp.listen_cfg(server, ${3:8080}, {\"shutdown_ms\": 800})",
+      "\t.ok(0)",
+      "}"
+    ],
+    "description": "Static + dynamic server skeleton"
+  },
+  "JSON parse": {
+    "prefix": "jsonparse",
+    "body": "json.parse(${1:s})",
+    "description": "Parse JSON string"
+  },
+  "Read file": {
+    "prefix": "readfile",
+    "body": "fs.read_file(\"${1:path}\")",
+    "description": "Read file contents"
+  },
+  "Get env var": {
+    "prefix": "getenv",
+    "body": "env.get_var(\"${1:NAME}\")",
+    "description": "Get environment variable"
+  }
+}
